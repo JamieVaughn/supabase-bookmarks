@@ -1,0 +1,51 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+
+#root, .App {
+  position: relative;
+  background: transparent;
+  min-height: 100vh;
+}
+* {
+  box-sizing: border-box;
+}
+body, html {
+  padding: 0;
+  margin: 0;
+}
+
+.content {
+  padding: 3rem;
+}
+.container {
+  padding: 1rem;
+  margin: 0 auto;
+}
+.center {
+  text-align: center;
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+.push-right {
+  margin-left: auto;
+}
+input:empty + [hidden] {
+  display: none;
+}
+
+.spinner {
+  margin: 100px auto;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  border: 6px solid rgba(0, 0, 0, 0.1);
+  border-top: 6px solid dodgerblue;
+  animation: rotating 1s infinite linear;
+}
+
+@keyframes rotating {
+  100% {
+    transform: rotate(360deg);
+  }
+}
