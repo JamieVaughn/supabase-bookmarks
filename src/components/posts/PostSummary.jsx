@@ -16,7 +16,7 @@ function PostSummary (props) {
         <p className='title is-4'>
           <a href={url} target='_blank'>{title}</a>
         </p>
-        <span className='small push-right'>{author}</span>
+        <span className=''>{author}</span>
       </div>
       <div className="card-content">
         <p className="center">{summary}</p>

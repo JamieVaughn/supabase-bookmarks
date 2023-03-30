@@ -19,16 +19,17 @@ function Auth (props) {
       setLoading(false)
     }
   }
-
-  return (
-    <>
-    {loading ? 
+  if(loading) {
+    return (
       <div>
         <div className="spinner"></div>
         <span>Sending Magin Link... <br />Check you email</span>
       </div>
-    : (
-      <form onSubmit={handleLogin}>
+    )
+  }
+
+  return (
+    <form onSubmit={handleLogin}>
       <div className="field">
         <label className="label" htmlFor='email'>Email</label>
         <div className="control">
@@ -46,8 +47,6 @@ function Auth (props) {
         <button className='button is-primary is-fullwidth'>Send Magic Link</button>
       </div>
     </form>
-    )}
-    </>
   )
 }
 
