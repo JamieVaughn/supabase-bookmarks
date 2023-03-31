@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import Auth from './Auth'
+import InputField from '../posts/InputField'
 
-function Signup (props) {
+function Signup () {
   const [name, setName] = useState('')
 
   return (
@@ -9,17 +10,11 @@ function Signup (props) {
       <h1>New Here?</h1>
       <h2>Sign up with your email</h2>
       <form onSubmit={e => e.preventDefault()}>
-        <label className="label" htmlFor='name'>Name</label>
-        <div className="control">
-          <input 
-          id='name' 
-          className="input" 
-          type="text" 
-          placeholder="Your Full Name"
+        <InputField 
+          id={'name'}
           value={name}
-          onChange={e => setName(e.target.value)}
-           />
-        </div>
+          handleChange={e => setName(e.target.value)}
+        />
       </form>
       <Auth fullName={name} />
       <h4>You'll be emailed a magic link to sign up with</h4>

@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { supabase } from '../auth/supabaseClient'
 import { useSelector } from 'react-redux';
-import { saveUser } from '../auth/userSlice';
+import { selectUser } from '../auth/userSlice';
+import InputField from './InputField';
 
 export const categories = [ "html5", "css3", "csswizardry", "git", "webcomponentsdotorg", "materialdesign", "bootstrap", "bulma", "github", "amazonaws", "json", "redux", "javascript", "svg", "visualstudiocode", "freecodecamp", "codesandbox", "codepen", "firebase", "npm", "nodedotjs", "react", "reactrouter", "angular", "vuedotjs",];
 
 function CreatePost (props) {
-  const { user } = useSelector(saveUser)
+  const { user } = useSelector(selectUser)
+  const [userData, setUserData] = useState(null)
   const [valid, setValid] = useState(true)
   const [post, setPost] = useState({
     title: '',
@@ -14,9 +16,31 @@ function CreatePost (props) {
     summary: '',
     body: '',
     category: '',
-    author: user?.full_name || user?.username || user?.email.slice(user.email.indexOf('@')) || props.session.user.username,
+    author: user?.full_name || user?.email.slice(user.email.indexOf('@')),
+    username: user?.username || '',
     email: user?.email || props.session.user.email
   })
+
+  useEffect(() => {
+    const getUser = async () => {
+      let { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', user.id)
+      .single()
+      setUserData(data)
+    }
+    getUser()
+  }, [])
+
+  useEffect(() => {
+    setPost({
+      ...post,
+      author: userData?.full_name,
+      username: userData?.username
+    })
+  }, [userData])
+
   const handleChange = e => {
     setPost({
       ...post,
@@ -44,21 +68,18 @@ function CreatePost (props) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h5>Create A New Post:</h5>
+      <section className="box">
+        <div><strong>By:</strong> {post.author}</div>
+        <span><strong>Username:</strong> {post.username}</span>
+      </section>
+      <h2>Create A New Post:</h2>
       <div className="field columns is-vcentered">
         <div className="control column is-two-thirds">
-        <label className="label" htmlFor='title'>Title</label>
-          <div className="control">
-            <input 
-            required
-            id='title' 
-            className="input" 
-            type="text" 
-            placeholder="Provide a title"
-            value={post.title}
-            onChange={handleChange}
-            />
-          </div>
+        <InputField 
+          id={'title'}
+          value={post.title}
+          handleChange={handleChange}
+        />
         </div>
         <div className="control column is-one-third">
         <label className="label" htmlFor='category'>Category</label>
@@ -71,38 +92,19 @@ function CreatePost (props) {
         </div>
       </div>
       </div>
-      <div className="field">
-        <label className="label" htmlFor='url'>Web Address</label>
-        <div className="control">
-          <input 
-          required
-          id='url' 
-          className="input" 
-          type="text" 
-          pattern='^https://.+[.].+'
-          placeholder="Provide your url"
-          value={post.url}
-          onChange={handleChange}
-           />
-           <p className='help is-info'>Include <i>'https://'</i></p>
-        </div>
-      </div>
-      <div className="field">
-        <label className="label" htmlFor='summary'>Summary</label>
-        <div className="control">
-          <input 
-          required
-          id='summary' 
-          className="input" 
-          type="text" 
-          placeholder="Provide your summary"
-          value={post.summary}
-          onChange={e => (handleChange(e), validate(e))}
-          maxLength={41}
-           />
-           <p className='help is-danger' hidden={valid}>Summaries must be 40 characters or less.</p>
-        </div>
-      </div>
+      <InputField 
+        id={'url'}
+        title={'Web Address'}
+        value={post.url}
+        handleChange={handleChange}
+        help={<span>Include <i>'https://'</i></span>}
+      />
+      <InputField 
+        id={'summary'}
+        value={post.summary}
+        handleChange={e => (handleChange(e), validate(e))}
+        help={<span hidden={valid}>Summaries must be 40 characters or less.</span>}
+      />
       <div className="field">
         <label className="label" htmlFor='body'>Body</label>
         <div className="control">

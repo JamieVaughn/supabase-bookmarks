@@ -1,53 +1,43 @@
-import { useState } from 'react'
-import { supabase } from './supabaseClient'
+import { useState } from "react";
+import { supabase } from "./supabaseClient";
+import InputField from "../posts/InputField";
+import { dbCallback } from "../lib/dbCallback";
 
-function Auth (props) {
-  const { fullName } = props
-  const [loading, setLoading] = useState(false)
-  const [email, setEmail] = useState('')
+function Auth(props) {
+  const { fullName } = props;
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
 
   const handleLogin = async (e) => {
-    e.preventDefault()
-    try {
-      setLoading(true)
-      let { error } = await supabase.auth.signInWithOtp({
-        email
-      })
-    } catch(err) {
-      console.log(err)
-    } finally {
-      setLoading(false)
-    }
-  }
-  if(loading) {
+    dbCallback(e, () => supabase.auth.signInWithOtp({ email }), setLoading);
+  };
+
+  if (loading) {
     return (
       <div>
         <div className="spinner"></div>
-        <span>Sending Magin Link... <br />Check you email</span>
+        <span>
+          Sending Magin Link... <br />
+          Check you email
+        </span>
       </div>
-    )
+    );
   }
 
   return (
     <form onSubmit={handleLogin}>
+      <InputField
+        id={"email"}
+        value={email}
+        handleChange={(e) => setEmail(e.target.value)}
+      />
       <div className="field">
-        <label className="label" htmlFor='email'>Email</label>
-        <div className="control">
-          <input 
-          id='email' 
-          className="input" 
-          type="text" 
-          placeholder="Provide your email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-           />
-        </div>
-      </div>
-      <div className="field">
-        <button className='button is-primary is-fullwidth'>Send Magic Link</button>
+        <button className="button is-primary is-fullwidth">
+          Send Magic Link
+        </button>
       </div>
     </form>
-  )
+  );
 }
 
-export default Auth
+export default Auth;

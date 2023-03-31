@@ -15,6 +15,7 @@ import { saveUser } from "./components/auth/userSlice"
 function App() {
   const [session, setSession] = useState(null)
   const dispatch = useDispatch()
+  const isAuthed = !!session?.user?.id
 
   useEffect(() => {
     supabase.auth.getSession().then(({data}) => {
@@ -26,14 +27,14 @@ function App() {
       dispatch(saveUser(session))
     })
   }, [])
-  console.log(session)
+
   return (
     <BrowserRouter>
       <main className="App">
-        <Navbar isAuthed={!!session?.user?.id} />
+        <Navbar />
         <div className="content">
           <Routes>
-            <Route exact path='/' element={<Dashboard isAuthed={!!session?.user?.id} />} />
+            <Route exact path='/' element={<Dashboard />} />
             <Route path='/signin' element={<Signin />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/account' element={<Account />} />

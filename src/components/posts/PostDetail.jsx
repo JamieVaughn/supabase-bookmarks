@@ -14,7 +14,6 @@ function PostDetail () {
         .eq('id', postId)
         .single()
 
-        console.log(post, error)
       if(error) {
         console.error(error)
       } else {
@@ -28,18 +27,18 @@ function PostDetail () {
 
   return (
     <article className="message">
-      <div className="message-header">
+      <header className="message-header">
         <p><a href={post.url} target="_blank">{post.title}</a></p>
-        <Link to='/' class='icon'>&larr;</Link>
-      </div>
-      <div className="message-body">
-        <div className="box">
-          <span>By: {post.author}</span>
-          <span>Submitted: {new Date(post.created_at).toLocaleString()}</span>
-        </div>
+        <Link to='/'>&larr;</Link>
+      </header>
+      <article className="message-body">
+        <section className="box">
+          <div>By: {post.author}</div>
+          <div>Submitted: {new Date(post.created_at).toLocaleString()}</div>
+        </section>
         <h2>{post.summary}</h2>
         <p>{post.body}</p>
-      </div>
+      </article>
     </article>
   )
 }

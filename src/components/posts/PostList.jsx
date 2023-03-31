@@ -4,7 +4,7 @@ import PostSummary from './PostSummary'
 import { supabase } from '../auth/supabaseClient'
 import './posts.css'
 
-function PostList (props) {
+function PostList () {
   const [loading, setLoading] = useState(true)
   const [posts, setPosts] = useState([])
 
@@ -13,7 +13,6 @@ function PostList (props) {
       let { data, error } = await supabase.from('posts').select('*')
       setPosts(data)
       setLoading(false)
-      console.log(data, error)
     }
     getPosts()
   }, [])
