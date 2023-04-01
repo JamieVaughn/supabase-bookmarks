@@ -26,24 +26,22 @@ function PostDetail() {
   if (!post) return <div className="spinner" />;
 
   return (
-    <article className="message">
-      <header className="message-header">
-        <p>
-          <a href={post.url} target="_blank">
-            {post.title}
-          </a>
-        </p>
-        <Link to="/">&larr;</Link>
-      </header>
-      <article className="message-body">
-        <section className="box">
-          <div>By: {post.author}</div>
-          <div>Submitted: {new Date(post.created_at).toLocaleString()}</div>
-        </section>
-        <h2>{post.summary}</h2>
-        <p>{post.body}</p>
-      </article>
+    <>
+    <header className="flex ui top attached header">
+      <h2><a className="capitalize" href={post.url} target="_blank">
+        {post.title}
+      </a></h2>
+      <Link to="/">&larr;</Link>
+    </header>
+    <article className="ui attached segment">
+      <h4>{post.summary}</h4>
+      <p>{post.body}</p>
     </article>
+    <footer className="flex ui bottom attached header ui message blue">
+      <div>By: {post.author}</div>
+      <div>Submitted: {new Date(post.created_at).toLocaleString()}</div>
+    </footer>
+    </>
   );
 }
 

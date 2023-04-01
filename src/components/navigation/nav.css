@@ -14,17 +14,14 @@
 .tab {
   margin: 0 4px
 }
-.tabs {
-  display: flex;
-}
-.tab a:is(.pending, .active) {
+.tab a.active {
   border-color: black;
   border-width: 3px;
   color: black;
 }
-.tabs .tab a {
+.tab a {
   padding: 0 15px;
   line-height: 48px;
   margin: 0;
-  color: white;
+  color: white !important;
 }

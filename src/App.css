@@ -12,13 +12,25 @@ body, html {
   margin: 0;
   min-width: 100vw;
 }
-
 .content {
   padding: 3rem;
 }
-
+.ml-auto {
+  margin-left: auto;
+}
+/* posts */
+.post-list {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+}
 .ui.cards {
   margin: 0 !important;
+}
+
+/* utils */
+.capitalize {
+  text-transform: capitalize;
 }
 .center {
   text-align: center;
@@ -26,10 +38,9 @@ body, html {
 .flex {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
-.push-right {
-  margin-left: auto;
-}
+
 input:empty + [hidden] {
   display: none;
 }

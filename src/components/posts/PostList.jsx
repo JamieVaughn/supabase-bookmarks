@@ -4,7 +4,6 @@ import PostSummary from "./PostSummary";
 import { supabase } from "../../store/supabaseClient";
 import { useSelector } from "react-redux";
 import { selectAuthed } from "../../store/userSlice";
-import "./posts.css";
 
 function PostList() {
   const isAuthed = useSelector(selectAuthed);

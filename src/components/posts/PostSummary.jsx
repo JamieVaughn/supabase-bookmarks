@@ -1,20 +1,16 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { categories } from './CreatePost'
 
 function PostSummary (props) {
   const { id, url, category, email, author, summary, title, created_at } = props.post
-  const slug = 'react'
-  const color = 'blue'
   return (
     <div className="ui cards">
       <div class="card">
-
-        <div class="content">
-          <img className="ui tiny image" src={`https://cdn.simpleicons.org/${slug}/${color}`} alt="" />
-          <Link className="ui right floated button" to={`/post/${id}`}>Details &rarr;</Link>
+        <div class="content flex">
+          <img className="ui tiny image" src={`https://cdn.simpleicons.org/${category}`} alt="" />
+          <Link className="ui button ml-auto" to={`/post/${id}`}>Details &rarr;</Link>
         </div>
-
-        <div class="middle aligned content">
+        <div class="content">
           <a className="header" href={url} target='_blank'>{title}</a>
           <div className="description">
             <span>{summary}</span>
