@@ -2,7 +2,6 @@
 
 #root, .App {
   position: relative;
-  background: transparent;
   min-height: 100vh;
 }
 * {
@@ -11,14 +10,15 @@
 body, html {
   padding: 0;
   margin: 0;
+  min-width: 100vw;
 }
 
 .content {
   padding: 3rem;
 }
-.container {
-  padding: 1rem;
-  margin: 0 auto;
+
+.ui.cards {
+  margin: 0 !important;
 }
 .center {
   text-align: center;

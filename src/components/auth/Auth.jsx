@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { supabase } from "./supabaseClient";
+import { supabase } from "../../store/supabaseClient";
 import InputField from "../posts/InputField";
 import { dbCallback } from "../lib/dbCallback";
 

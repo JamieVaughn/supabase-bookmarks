@@ -6,6 +6,29 @@ function PostSummary (props) {
   const slug = 'react'
   const color = 'blue'
   return (
+    <div className="ui cards">
+      <div class="card">
+
+        <div class="content">
+          <img className="ui tiny image" src={`https://cdn.simpleicons.org/${slug}/${color}`} alt="" />
+          <Link className="ui right floated button" to={`/post/${id}`}>Details &rarr;</Link>
+        </div>
+
+        <div class="middle aligned content">
+          <a className="header" href={url} target='_blank'>{title}</a>
+          <div className="description">
+            <span>{summary}</span>
+          </div>
+          <div className="meta extra flex">
+            <p>{author}</p>
+            <time dateTime={created_at}>{new Date(created_at).toLocaleDateString()}</time>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+  return (
+
     <div className='post card'>
       <div className="card-header media">
         <img 

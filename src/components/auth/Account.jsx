@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../auth/supabaseClient";
+import { supabase } from "../../store/supabaseClient";
 import { useSelector } from "react-redux";
-import { selectUser } from "../auth/userSlice";
+import { selectUser } from "../../store/userSlice";
 import { dbCallback } from "../lib/dbCallback";
 import InputField from "../posts/InputField";
 
