@@ -16,10 +16,12 @@ function PostDetail() {
         </h2>
         <Link to="/">&larr; Back</Link>
       </nav>
-      <small>By: {post.author}</small>
-      <h4>{post.summary}</h4>
-      <p>{post.body}</p>
-      <small>Submitted: {new Date(post.created_at).toLocaleString()}</small>
+      <div>
+        <small>By: {post.author}</small>
+        <h4>{post.summary}</h4>
+        <p>{post.body}</p>
+        <small>Submitted: {new Date(post.created_at).toLocaleString()}</small>
+      </div>
     </article>
   );
 }

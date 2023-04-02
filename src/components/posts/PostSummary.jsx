@@ -15,9 +15,7 @@ function PostSummary (props) {
           <time dateTime={created_at}>{time}</time>
         </sup>
       </header>
-      <article>
-        <p>{summary}</p>
-      </article>
+      <p>{summary}</p>
       <small>{email}</small>
       <footer>
         <p>{author}</p>

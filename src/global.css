@@ -1,3 +1,5 @@
+/* mvp css framework */
+@import "https://unpkg.com/mvp.css@1.12/mvp.css" layer(framework);
 /* basic reset */
 * {
   box-sizing: border-box;
@@ -50,7 +52,14 @@ aside footer {
 }
 
 /* post detail */
-
+article {
+  box-shadow: 0 0 10px silver;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+article > div {
+  padding: 1rem;
+}
 article > nav {
   background-color: var(--color-secondary);
 }
@@ -73,6 +82,8 @@ form button {
 /* footer */
 
 #root > footer {
+  width:100%;
+  max-width: 100%;
   background-color: var(--color-secondary-accent);
 }
 
