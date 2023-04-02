@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 
-function UnAuthedLinks (props) {
+function UnAuthedLinks () {
 
   return (
     <ul>

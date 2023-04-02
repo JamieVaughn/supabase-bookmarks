@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../store/supabaseClient';
 
-export function useUser () {
+export function useUser (props) {
   const [error, setError] = useState(null)
   const [userData, setUserData] = useState(null);
 
@@ -10,7 +10,7 @@ export function useUser () {
       let { data, error } = await supabase
         .from("profiles")
         .select("*")
-        .eq("id", user.id)
+        .eq("id", props.id)
         .single()
       error ? setError(error) : setUserData(data)
     };

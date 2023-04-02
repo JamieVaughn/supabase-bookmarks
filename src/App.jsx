@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Route, Navigate } from "react-router-dom";
 import {
   Layout,
@@ -9,25 +8,12 @@ import {
   Account,
   CreatePost
 } from './components'
-import { supabase } from "./store/supabaseClient";
-import { useDispatch } from "react-redux";
-import { saveUser } from "./store/userSlice";
+import { useSession } from "./hooks/useSession";
 import "./global.css";
 
 function App() {
-  const [session, setSession] = useState(null);
-  const dispatch = useDispatch();
+  const session = useSession()
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      dispatch(saveUser(session));
-    });
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      dispatch(saveUser(session));
-    });
-  }, []);
   if(!session) {
     return (
       <Layout>

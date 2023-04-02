@@ -17,7 +17,7 @@ function Auth() {
         <div className="spinner"></div>
         <span>
           Sending Magic Link... <br />
-          Check you email
+          Check your email
         </span>
       </div>
     );

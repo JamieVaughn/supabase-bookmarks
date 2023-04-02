@@ -36,7 +36,8 @@ export const categories = [
 function CreatePost(props) {
   const { user } = useSelector(selectUser);
   const [valid, setValid] = useState(true);
-  const userData = useUser();
+  console.log('u', user)
+  const userData = useUser(user.id);
   const [post, setPost] = useState({
     title: "",
     url: "",
@@ -68,6 +69,7 @@ function CreatePost(props) {
     if (!post.email && !post.author) {
       return;
     }
+    console.log('success')
     await supabase.from("posts").insert([post]);
     setPost({
       title: "",

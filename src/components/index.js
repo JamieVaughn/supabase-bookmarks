@@ -1,4 +1,4 @@
-import Layout from "./appshell/layout";
+import Layout from "./appshell/Layout";
 import Signin from "./auth/Signin";
 import Signup from "./auth/Signup";
 import Account from "./auth/Account";
