@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { supabase } from "../../store/supabaseClient";
+import { supabase } from "../store/supabaseClient";
 
 export function usePost(id) {
   const [post, setPost] = useState(null);

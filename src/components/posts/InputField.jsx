@@ -1,23 +1,21 @@
 
 function InputField (props) {
-  const { id, title, handleChange, pattern, required, help, value } = props
+  const { id, title, handleChange, pattern, maxLength, required, help, value } = props
 
   return (
-    <div className="field">
-      <label className="label" style={{textTransform: 'capitalize'}} htmlFor={id}>{title ?? id}</label>
-      <div className="control">
-        <input 
-        required={required ?? true}
-        id={id}
-        className="input" 
-        type="text" 
-        pattern={pattern}
-        placeholder={`Provide your ${id}`}
-        value={value}
-        onChange={handleChange}
-        />
-        {help && <p className='help is-info'>{help}</p>}
-      </div>
+    <div>
+      <label className='capitalize' htmlFor={id}>{title ?? id}</label>
+      <input 
+      required={required ?? true}
+      id={id}
+      type="text" 
+      pattern={pattern}
+      maxLength={maxLength}
+      placeholder={`Provide your ${id}`}
+      value={value}
+      onChange={handleChange}
+      />
+      <span>{help && <sup>{help}</sup>}</span>
     </div>
   )
 }

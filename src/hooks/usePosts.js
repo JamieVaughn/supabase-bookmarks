@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
-import { supabase } from "../../store/supabaseClient";
+import { supabase } from "../store/supabaseClient";
+import { useSelector } from "react-redux";
+import { selectAuthed } from "../store/userSlice";
 
-export function usePosts (isAuthed) {
+export function usePosts () {
+  const isAuthed = useSelector(selectAuthed);
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);

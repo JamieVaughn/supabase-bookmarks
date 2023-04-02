@@ -2,55 +2,28 @@ import { Link } from 'react-router-dom'
 
 function PostSummary (props) {
   const { id, url, category, email, author, summary, title, created_at } = props.post
-  // return (
-  //   <div className="ui cards">
-  //     <div className="card">
-  //       <div className="content flex">
-  //         <img className="ui tiny image" src={`https://cdn.simpleicons.org/${category}`} alt="Tech logo" />
-  //         <Link className="ui button ml-auto" to={`/post/${id}`}>Details &rarr;</Link>
-  //       </div>
-  //       <div className="content">
-  //         <a className="header" href={url} target='_blank'>{title}</a>
-  //         <div className="description">
-  //           <span>{summary}</span>
-  //         </div>
-  //         <div className="meta extra flex">
-  //           <p>{author}</p>
-  //           <time dateTime={created_at}>{new Date(created_at).toLocaleDateString()}</time>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // )
+  const time = new Date(created_at).toLocaleDateString()
   return (
-
-    <div className='post card'>
-      <div className="card-header media">
+    <aside>
+      <header>
         <img 
-        className='media-left image is-32x32'
-        height={32}
-        width={32}
+        height={48}
+        width={48}
         src={`https://cdn.simpleicons.org/${category}`} alt="Tech Logo" />
-        <p className='title is-4'>
-          <a href={url} target='_blank'>{title}</a>
-        </p>
-        <span className=''>{author}</span>
-      </div>
-      <div className="card-content">
-        <p className="center">{summary}</p>
-      </div>
-      <div className="card-footer">
-        <div className="card-footer-item">
-          <p className='subtitle is-6'>{email}</p>
-        </div>
-        <div className="card-footer-item">
-          <time dateTime={created_at}>{created_at}</time>
-        </div>
-        <div className="card-footer-">
-          <Link to={`/post/${id}`}>Details &rarr;</Link>
-        </div>
-      </div>
-    </div>
+        <h3><a href={url} target='_blank'>{title}</a></h3>
+        <sup>
+          <time dateTime={created_at}>{time}</time>
+        </sup>
+      </header>
+      <article>
+        <p>{summary}</p>
+      </article>
+      <small>{email}</small>
+      <footer>
+        <p>{author}</p>
+        <Link to={`/post/${id}`}>Details &rarr;</Link>
+      </footer>
+    </aside>
   )
 }
 

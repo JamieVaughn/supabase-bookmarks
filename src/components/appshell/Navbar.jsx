@@ -7,13 +7,11 @@ import { selectAuthed } from "../../store/userSlice";
 function Navbar() {
   const isAuthed = useSelector(selectAuthed);
   return (
-    <nav className="flex navbar is-info">
+    <nav>
       <Link to="/">
-        <h1 className="ui header white text-lg">
-          📝 Bookmarks
-        </h1>
+        <h1>📝 Bookmarks</h1>
       </Link>
-      <div className="ml-auto">
+      <div>
         {isAuthed ? <AuthedLinks /> : <UnAuthedLinks />}
       </div>
     </nav>

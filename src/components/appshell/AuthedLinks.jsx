@@ -3,7 +3,7 @@ import { supabase } from "../../store/supabaseClient";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/userSlice";
 
-function AuthedLinks(props) {
+function AuthedLinks() {
   const dispatch = useDispatch();
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -11,31 +11,25 @@ function AuthedLinks(props) {
   };
 
   return (
-    <ul className="tabs">
-      <li className="tab">
+    <ul>
+      <li>
         <NavLink
           to="/create"
-          className={({ isActive }) => (isActive ? "next-active" : "")}
-        >
-          Create Post
-        </NavLink>
+          className={({ isActive }) => isActive ? "active" : ''}
+        >Create Post</NavLink>
       </li>
-      <li className="tab">
+      <li>
         <NavLink
           to="/account"
-          className={({ isActive }) => (isActive ? "next-active" : "")}
-        >
-          👤
-        </NavLink>
+          className={({ isActive }) => isActive ? "active" : ''}
+        >👤</NavLink>
       </li>
-      <li className="tab">
+      <li>
         <NavLink
           to="/"
           onClick={handleLogout}
-          className={({ isActive }) => (isActive ? "next-active" : "")}
-        >
-          Logout
-        </NavLink>
+          className={({ isActive }) => isActive ? "active" : ''}
+        >Logout</NavLink>
       </li>
     </ul>
   );

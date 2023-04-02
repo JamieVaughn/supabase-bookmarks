@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { supabase } from '../store/supabaseClient';
 
 export function useUser () {
   const [error, setError] = useState(null)

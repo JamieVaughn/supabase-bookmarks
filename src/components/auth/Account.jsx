@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { supabase } from "../../store/supabaseClient";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/userSlice";
-import { dbCallback } from "../lib/dbCallback";
+import { dbCallback } from "../../lib/dbCallback";
 import InputField from "../posts/InputField";
 
-function Account(props) {
+function Account() {
   const [loading, setLoading] = useState(false);
   const [fullname, setFullname] = useState("");
   const [username, setUsername] = useState("");
@@ -29,7 +29,7 @@ function Account(props) {
     <div>
       <form onSubmit={updateProfile}>
         <h1>My Profile:</h1>
-        <h3>Email: {user.email}</h3>
+        <h4>Email: {user.email}</h4>
         <InputField
           id={"username"}
           value={username}
@@ -41,9 +41,7 @@ function Account(props) {
           value={fullname}
           handleChange={(e) => setFullname(e.target.value)}
         />
-        <div className="field">
-          <button className="button is-dark is-fullwidth mt-2">Submit</button>
-        </div>
+        <button>Submit</button>
       </form>
     </div>
   );

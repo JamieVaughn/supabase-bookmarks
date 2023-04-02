@@ -3,14 +3,14 @@ import { NavLink } from 'react-router-dom'
 function UnAuthedLinks (props) {
 
   return (
-    <ul className='flex'>
-      <li className='tab'>
+    <ul>
+      <li>
         <NavLink 
         to='/signup'
         className={({isActive}) => isActive ? 'active' : ''}
         >Signup</NavLink>
       </li>
-      <li className='tab'>
+      <li>
         <NavLink 
         to='/signin'
         className={({isActive}) => isActive ? 'active' : ''}

@@ -1,0 +1,18 @@
+
+/* Utils is not being used */
+
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+.flex.start {
+  justify-content: flex-start;
+}
+

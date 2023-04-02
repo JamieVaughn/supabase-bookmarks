@@ -3,7 +3,7 @@ import { supabase } from "../../store/supabaseClient";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/userSlice";
 import InputField from "./InputField";
-import { useUser } from "../hooks/useUser";
+import { useUser } from "../../hooks/useUser";
 
 export const categories = [
   "html5",
@@ -36,7 +36,7 @@ export const categories = [
 function CreatePost(props) {
   const { user } = useSelector(selectUser);
   const [valid, setValid] = useState(true);
-  const userData = useUser()
+  const userData = useUser();
   const [post, setPost] = useState({
     title: "",
     url: "",
@@ -47,7 +47,7 @@ function CreatePost(props) {
     username: user?.username || "",
     email: user?.email || props.session.user.email,
   });
- 
+
   useEffect(() => {
     setPost({
       ...post,
@@ -79,44 +79,33 @@ function CreatePost(props) {
     });
   };
 
-  const validate = (e) => setValid(e.target.value.length > 40 ? false : true);
+  const maxLength = 50;
+  const validate = (e) => setValid(e.target.value.length < maxLength);
 
   return (
     <form onSubmit={handleSubmit}>
-      <section className="box">
-        <div>
-          <strong>By:</strong> {post.author}
-        </div>
-        <span>
-          <strong>Username:</strong> {post.username}
-        </span>
-      </section>
-      <h2>Create A New Post:</h2>
-      <div className="field columns is-vcentered">
-        <div className="control column is-two-thirds">
-          <InputField
-            id={"title"}
-            value={post.title}
-            handleChange={handleChange}
-          />
-        </div>
-        <div className="control column is-one-third">
-          <label className="label" htmlFor="category">
-            Category
-          </label>
-          <div className="select">
-            <select id="category" required onChange={handleChange}>
-              {categories.map((category) => {
-                return (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-        </div>
-      </div>
+      <nav>
+        <h2>Create A New Post:</h2>
+        <section>
+          <aside>
+            <small>By: {post.author}</small>
+            <br />
+            <small>Username: {post.username}</small>
+          </aside>
+        </section>
+      </nav>
+
+      <InputField id={"title"} value={post.title} handleChange={handleChange} />
+      <label htmlFor="category">Category</label>
+      <select id="category" required onChange={handleChange}>
+        {categories.map((category) => {
+          return (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          );
+        })}
+      </select>
       <InputField
         id={"url"}
         title={"Web Address"}
@@ -132,30 +121,24 @@ function CreatePost(props) {
         id={"summary"}
         value={post.summary}
         handleChange={(e) => (handleChange(e), validate(e))}
+        maxLength={maxLength}
         help={
-          <span hidden={valid}>Summaries must be 40 characters or less.</span>
+          !valid && (
+            <span>Summaries must be {maxLength} characters or less.</span>
+          )
         }
       />
-      <div className="field">
-        <label className="label" htmlFor="body">
-          Body
-        </label>
-        <div className="control">
-          <textarea
-            required
-            id="body"
-            className="input"
-            type="text"
-            rows="4"
-            placeholder="Provide the body text"
-            value={post.body}
-            onChange={handleChange}
-          />
-        </div>
-      </div>
-      <div className="field">
-        <button className="button is-dark is-fullwidth mt-2">Submit</button>
-      </div>
+      <label htmlFor="body">Body</label>
+      <textarea
+        required
+        id="body"
+        type="text"
+        rows="4"
+        placeholder="Provide the body text"
+        value={post.body}
+        onChange={handleChange}
+      />
+      <button>Submit</button>
     </form>
   );
 }

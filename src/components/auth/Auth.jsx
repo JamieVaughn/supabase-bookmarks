@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { supabase } from "../../store/supabaseClient";
 import InputField from "../posts/InputField";
-import { dbCallback } from "../lib/dbCallback";
+import { dbCallback } from "../../lib/dbCallback";
 
-function Auth(props) {
-  const { fullName } = props;
+function Auth() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
 
@@ -14,10 +13,10 @@ function Auth(props) {
 
   if (loading) {
     return (
-      <div className="flex start">
+      <div>
         <div className="spinner"></div>
         <span>
-          Sending Magic Link... <br /> 
+          Sending Magic Link... <br />
           Check you email
         </span>
       </div>
@@ -31,11 +30,7 @@ function Auth(props) {
         value={email}
         handleChange={(e) => setEmail(e.target.value)}
       />
-      <div className="field">
-        <button className="button is-primary is-fullwidth">
-          Send Magic Link
-        </button>
-      </div>
+      <button>Send Magic Link</button>
     </form>
   );
 }
