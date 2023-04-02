@@ -1,30 +1,19 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PostSummary from "./PostSummary";
-import { supabase } from "../../store/supabaseClient";
 import { useSelector } from "react-redux";
 import { selectAuthed } from "../../store/userSlice";
+import Signin from "../auth/Signin";
+import { usePosts } from "../hooks/usePosts";
 
 function PostList() {
   const isAuthed = useSelector(selectAuthed);
-
-  const [loading, setLoading] = useState(true);
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    async function getPosts() {
-      let { data, error } = await supabase.from("posts").select("*");
-      setPosts(data);
-      setLoading(false);
-    }
-    if (isAuthed) getPosts();
-  }, []);
-
+  const { posts, loading, error } = usePosts(isAuthed)
+  console.log('check', isAuthed)
   if (!isAuthed) return <Signin />;
   if (loading) return <div className="spinner" />;
   return (
     <section className="post-list">
-      {posts.length ? (
+      {posts.length && !loading ? (
         posts.map((post) => {
           return <PostSummary key={post.id} post={post} />;
         })

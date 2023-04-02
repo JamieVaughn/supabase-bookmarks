@@ -3,18 +3,17 @@ import UnAuthedLinks from "./UnAuthedLinks";
 import AuthedLinks from "./AuthedLinks";
 import { useSelector } from "react-redux";
 import { selectAuthed } from "../../store/userSlice";
-import "./nav.css";
 
 function Navbar() {
   const isAuthed = useSelector(selectAuthed);
   return (
-    <nav className="navbar nav-extended is-info">
-      <div className="navbar-brand">
-        <Link className="brand" to="/">
+    <nav className="flex navbar is-info">
+      <Link to="/">
+        <h1 className="ui header white text-lg">
           📝 Bookmarks
-        </Link>
-      </div>
-      <div className="nav-content">
+        </h1>
+      </Link>
+      <div className="ml-auto">
         {isAuthed ? <AuthedLinks /> : <UnAuthedLinks />}
       </div>
     </nav>

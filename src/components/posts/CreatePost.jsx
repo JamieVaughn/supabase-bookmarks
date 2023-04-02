@@ -3,6 +3,7 @@ import { supabase } from "../../store/supabaseClient";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/userSlice";
 import InputField from "./InputField";
+import { useUser } from "../hooks/useUser";
 
 export const categories = [
   "html5",
@@ -34,8 +35,8 @@ export const categories = [
 
 function CreatePost(props) {
   const { user } = useSelector(selectUser);
-  const [userData, setUserData] = useState(null);
   const [valid, setValid] = useState(true);
+  const userData = useUser()
   const [post, setPost] = useState({
     title: "",
     url: "",
@@ -46,19 +47,7 @@ function CreatePost(props) {
     username: user?.username || "",
     email: user?.email || props.session.user.email,
   });
-
-  useEffect(() => {
-    const getUser = async () => {
-      let { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", user.id)
-        .single();
-      setUserData(data);
-    };
-    getUser();
-  }, []);
-
+ 
   useEffect(() => {
     setPost({
       ...post,

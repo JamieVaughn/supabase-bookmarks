@@ -1,30 +1,11 @@
-import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { supabase } from "../../store/supabaseClient";
+import { usePost } from "../hooks/usePost";
 
 function PostDetail() {
-  const [post, setPost] = useState(null);
   const postId = useParams().id;
+  const { post, loading, error } = usePost(postId)
 
-  useEffect(() => {
-    async function getPost() {
-      let { data: post, error } = await supabase
-        .from("posts")
-        .select("*")
-        .eq("id", postId)
-        .single();
-
-      if (error) {
-        console.error(error);
-      } else {
-        setPost(post);
-      }
-    }
-    getPost();
-  }, []);
-
-  if (!post) return <div className="spinner" />;
-
+  if (loading) return <div className="spinner" />;
   return (
     <>
     <header className="flex ui top attached header">

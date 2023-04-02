@@ -14,10 +14,10 @@ function Auth(props) {
 
   if (loading) {
     return (
-      <div>
+      <div className="flex start">
         <div className="spinner"></div>
         <span>
-          Sending Magin Link... <br />
+          Sending Magic Link... <br /> 
           Check you email
         </span>
       </div>

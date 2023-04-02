@@ -10,13 +10,14 @@ const userSlice = createSlice({
       state.auth = null
     },
     saveUser: (state, action) => {
+      console.log('redux', action)
       state.auth = action.payload
     },
   }
 })
 
-export const selectUser = state => state.user?.auth ?? {user: null}
-export const selectAuthed = state => state.user?.auth?.id ?? { user: null}
+export const selectUser = state => state.user?.auth ?? false
+export const selectAuthed = state => state.user?.auth?.user?.id
 
 export const {
   logout,

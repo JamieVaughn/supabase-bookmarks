@@ -18,7 +18,7 @@ body, html {
 .ml-auto {
   margin-left: auto;
 }
-/* posts */
+/* post list */
 .post-list {
   display: grid;
   gap: 1rem;
@@ -29,6 +29,12 @@ body, html {
 }
 
 /* utils */
+.text-lg {
+  font-size: 2em;
+}
+.white {
+  color: white !important;
+}
 .capitalize {
   text-transform: capitalize;
 }
@@ -39,8 +45,30 @@ body, html {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 1rem;
+}
+.flex.start {
+  justify-content: flex-start;
 }
 
+/* nav bar */
+
+.navbar .tab {
+  margin: 0 4px
+}
+.navbar .tab a.active {
+  border-bottom: 3px solid black;
+  color: black !important;
+}
+.tab a {
+  padding: 0 15px;
+  line-height: 48px;
+  margin: 0;
+  color: white !important;
+}
+
+
+/* create posts */
 input:empty + [hidden] {
   display: none;
 }

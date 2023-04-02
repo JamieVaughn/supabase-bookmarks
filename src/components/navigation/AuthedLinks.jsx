@@ -15,7 +15,7 @@ function AuthedLinks(props) {
       <li className="tab">
         <NavLink
           to="/create"
-          className={({ isActive }) => (isActive ? "active" : "")}
+          className={({ isActive }) => (isActive ? "next-active" : "")}
         >
           Create Post
         </NavLink>
@@ -23,7 +23,7 @@ function AuthedLinks(props) {
       <li className="tab">
         <NavLink
           to="/account"
-          className={({ isActive }) => (isActive ? "active" : "")}
+          className={({ isActive }) => (isActive ? "next-active" : "")}
         >
           👤
         </NavLink>
@@ -32,7 +32,7 @@ function AuthedLinks(props) {
         <NavLink
           to="/"
           onClick={handleLogout}
-          className={({ isActive }) => (isActive ? "active" : "")}
+          className={({ isActive }) => (isActive ? "next-active" : "")}
         >
           Logout
         </NavLink>
