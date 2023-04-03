@@ -67,13 +67,13 @@ function CreatePost(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const isValid = e.target.reportValidity()
-    setStatus({message: 'Form is not filled out correctly.'})
     if (!isValid || !post.email || !post.author) {
+      setStatus({message: 'Form is not filled out correctly.'})
       return
     } 
     const {status, error} = await supabase.from("posts").insert([post]);
     if(String(status).startsWith('2')) {
-      setStatus(status)
+      setStatus({status, message: 'Created a new post.' })
       setPost({
         title: "",
         url: "",

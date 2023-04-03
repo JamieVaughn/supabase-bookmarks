@@ -3,10 +3,13 @@ export async function dbCallback (event, callback, loading) {
   event?.preventDefault()
   try {
     loading(true)
-    const { error } = await callback()
-    if(error) throw error
+    const { data, error } = await callback()
+    loading(false)
+    console.log(data, error)
+    return { data, error }
   } catch (error) {
-    console.log(error)
+    loading(false)
+    console.error(error)
   } finally {
     loading(false)
   }

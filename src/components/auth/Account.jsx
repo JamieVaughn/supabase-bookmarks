@@ -10,9 +10,7 @@ function Account() {
   const [fullname, setFullname] = useState("");
   const [username, setUsername] = useState("");
   const { user } = useSelector(selectUser);
-
-  console.log(user);
-
+  
   const updateProfile = async (e) => {
     const updates = {
       id: user.id,
