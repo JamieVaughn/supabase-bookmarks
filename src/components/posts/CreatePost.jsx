@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../store/userSlice";
 import InputField from "./InputField";
 import { useUser } from "../../hooks/useUser";
+import StatusMessage from "./StatusMessage";
 
 export const categories = [
   "html5",
@@ -20,6 +21,7 @@ export const categories = [
   "redux",
   "javascript",
   "svg",
+  "supabase",
   "visualstudiocode",
   "freecodecamp",
   "codesandbox",
@@ -36,28 +38,27 @@ export const categories = [
 function CreatePost(props) {
   const { user } = useSelector(selectUser);
   const [valid, setValid] = useState(true);
-  console.log('u', user)
-  const userData = useUser(user.id);
+  const { userData, err } = useUser(user.id);
+  const [status, setStatus] = useState(false)
   const [post, setPost] = useState({
     title: "",
     url: "",
     summary: "",
     body: "",
     category: "",
-    author: user?.full_name || user?.email.slice(user.email.indexOf("@")),
-    username: user?.username || "",
-    email: user?.email || props.session.user.email,
+    author: userData?.full_name || user?.email.slice(user.email.indexOf("@")),
+    email: userData?.email || props.session.user.email,
   });
 
   useEffect(() => {
     setPost({
       ...post,
       author: userData?.full_name,
-      username: userData?.username,
     });
   }, [userData]);
 
   const handleChange = (e) => {
+    setStatus(false)
     setPost({
       ...post,
       [e.target.id]: e.target.value,
@@ -65,20 +66,26 @@ function CreatePost(props) {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("posts", post);
-    if (!post.email && !post.author) {
-      return;
+    const isValid = e.target.reportValidity()
+    setStatus({message: 'Form is not filled out correctly.'})
+    if (!isValid || !post.email || !post.author) {
+      return
+    } 
+    const {status, error} = await supabase.from("posts").insert([post]);
+    if(String(status).startsWith('2')) {
+      setStatus(status)
+      setPost({
+        title: "",
+        url: "",
+        summary: "",
+        body: "",
+        category: "",
+        author: "",
+      });
+    } else {
+      setStatus(error)
+      console.error({post, error})
     }
-    console.log('success')
-    await supabase.from("posts").insert([post]);
-    setPost({
-      title: "",
-      url: "",
-      summary: "",
-      body: "",
-      category: "",
-      author: "",
-    });
   };
 
   const maxLength = 50;
@@ -90,9 +97,9 @@ function CreatePost(props) {
         <h2>Create A New Post:</h2>
         <section>
           <aside>
-            <small>By: {post.author}</small>
+            <small>By: {post?.author}</small>
             <br />
-            <small>Username: {post.username}</small>
+            <small>Username: {userData?.username}</small>
           </aside>
         </section>
       </nav>
@@ -100,6 +107,7 @@ function CreatePost(props) {
       <InputField id={"title"} value={post.title} handleChange={handleChange} />
       <label htmlFor="category">Category</label>
       <select id="category" required onChange={handleChange}>
+        <option default value={'web'} disabled>Select One</option>
         {categories.map((category) => {
           return (
             <option key={category} value={category}>
@@ -112,6 +120,7 @@ function CreatePost(props) {
         id={"url"}
         title={"Web Address"}
         value={post.url}
+        pattern='^https://.+[.].+'
         handleChange={handleChange}
         help={
           <span>
@@ -140,6 +149,7 @@ function CreatePost(props) {
         value={post.body}
         onChange={handleChange}
       />
+      { status && <StatusMessage status={status}/> }
       <button>Submit</button>
     </form>
   );

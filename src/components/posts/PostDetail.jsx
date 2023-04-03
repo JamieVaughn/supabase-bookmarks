@@ -4,10 +4,10 @@ import { usePost } from "../../hooks/usePost";
 function PostDetail() {
   const postId = useParams().id;
   const { post, loading, error } = usePost(postId);
-
   if (loading) return <div className="spinner" />;
+  if(error) return <mark>{error.message}</mark>
   return (
-    <article>
+    <article className='detail'>
       <nav>
         <h2>
           <a href={post.url} target="_blank">
